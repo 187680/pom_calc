@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PAM_calculator</string>
+    <string name="title_standard">Standard</string>
+    <string name="title_extended">Extended</string>
+    <string name="title_about">About</string>
+    <string name="output_result">NaN</string>
+    <string name="button_1">1</string>
+    <string name="button_2">2</string>
+    <string name="button_C">C</string>
+    <string name="button_Plus">+</string>
+    <string name="button_Equal">=</string>
+</resources>
