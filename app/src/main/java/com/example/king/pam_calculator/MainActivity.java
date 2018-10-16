@@ -69,11 +69,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!isTextViewEmpty(mTextMessage)) {
+                if(!isTextViewEmpty(mTextMessage))
                     mTextMessage.setText(mTextMessage.getText().subSequence(0, mTextMessage.getText().length() - 1));
-                }else{
-                    mTextMessage.setText("");
-                }
             }
         });
 
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isTextViewEmpty(TextView myTextView) {
-        if (myTextView.getText() == "") {
+        if (myTextView.getText().length() == 0) {
             return true;
         }
         return false;
