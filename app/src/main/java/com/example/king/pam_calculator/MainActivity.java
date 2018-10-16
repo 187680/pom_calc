@@ -123,4 +123,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    private BigDecimal wynikDzialania(TextView myTextView){
+        BigDecimal bd = new BigDecimal(1);
+
+        String sign = "";
+        Character[] mathOpertators = {'+', '.'};
+
+        for (String findRegex : myTextView.getText().toString().split("")) {
+            for (int i = 0; i < mathOpertators.length; i++)
+                if (findRegex.charAt(0) == (mathOpertators[i])) {
+                    String[] params = myTextView.getText().toString().split(findRegex);
+                    BigDecimal b1 = new BigDecimal(params[0]);
+                    BigDecimal b2 = new BigDecimal(params[1]);
+                }
+        }
+
+
+
+        return bd;
+    }
 }
