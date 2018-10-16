@@ -9,15 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
 import java.math.BigDecimal;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BigDecimal equaltion;
-
     private Button button1, button2,
-           buttonC, buttonEqual,
-           buttonPlus;
+            buttonC, buttonBS, buttonDot,
+            buttonEqual,
+            buttonPlus;
 
     private TextView mTextMessage;
 
@@ -47,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonC = findViewById(R.id.buttonC);
-        buttonEqual = findViewById(R.id.buttonEqual);
+        buttonBS = findViewById(R.id.buttonBS);
+        buttonDot = findViewById(R.id.buttonDot);
 
+        buttonEqual = findViewById(R.id.buttonEqual);
         buttonPlus = findViewById(R.id.buttonPlus);
 
 
@@ -62,10 +65,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonBS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!isTextViewEmpty(mTextMessage)) {
+                    mTextMessage.setText(mTextMessage.getText().subSequence(0, mTextMessage.getText().length() - 1));
+                }else{
+                    mTextMessage.setText("");
+                }
+            }
+        });
+
+        buttonDot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText() + ".");
+            }
+        });
+
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.getText().toString();
+                Expression current = new Expression(mTextMessage.getText().toString());
+                BigDecimal equal = BigDecimal.valueOf(current.calculate());
+                mTextMessage.setText(equal.toString());
             }
         });
 
@@ -91,9 +115,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private boolean isTextViewEmpty(TextView myTextView) {
+        if (myTextView.getText() == "") {
+            return true;
+        }
+        return false;
     }
 }

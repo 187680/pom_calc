@@ -89,4 +89,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonC" />
 
+    <Button
+        android:id="@+id/buttonDot"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="164dp"
+        android:text="@string/button_Dot"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonC" />
+
+    <Button
+        android:id="@+id/buttonBS"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/button_BS"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonC"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
