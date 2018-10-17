@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.mariuszgromada.math.mxparser.Expression;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             buttonPlus;
 
     private TextView mTextMessage;
+    private EditText eTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Expression current = new Expression(mTextMessage.getText().toString());
-                BigDecimal equal = BigDecimal.valueOf(current.calculate());
-                mTextMessage.setText(equal.toString());
+                eTextMessage.setText(wynikDzialania(mTextMessage));
             }
         });
 
@@ -124,9 +124,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private BigDecimal wynikDzialania(TextView myTextView){
-        BigDecimal bd = new BigDecimal(1);
-
+    private String wynikDzialania(TextView myTextView){
+        BigDecimal b1 = null,b2 = null;
         String sign = "";
         Character[] mathOpertators = {'+', '.'};
 
@@ -134,13 +133,10 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < mathOpertators.length; i++)
                 if (findRegex.charAt(0) == (mathOpertators[i])) {
                     String[] params = myTextView.getText().toString().split(findRegex);
-                    BigDecimal b1 = new BigDecimal(params[0]);
-                    BigDecimal b2 = new BigDecimal(params[1]);
+                    b1 = new BigDecimal(params[0]);
+                    b2 = new BigDecimal(params[1]);
                 }
         }
-
-
-
-        return bd;
+        return b1.add(b2).toString();
     }
 }
