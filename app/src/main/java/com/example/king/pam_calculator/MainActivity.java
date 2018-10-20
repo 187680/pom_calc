@@ -9,20 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.mariuszgromada.math.mxparser.Expression;
-
 import java.math.BigDecimal;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button1, button2,
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
             buttonC, buttonBS, buttonDot,
             buttonEqual,
-            buttonPlus;
+            buttonPlus, buttonMinus, buttonDivide, buttonMultiply;
 
     private TextView mTextMessage;
-    private EditText eTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,10 +51,22 @@ public class MainActivity extends AppCompatActivity {
 
         buttonEqual = findViewById(R.id.buttonEqual);
         buttonPlus = findViewById(R.id.buttonPlus);
+        buttonMinus = findViewById(R.id.buttonMinus);
+        buttonMultiply = findViewById(R.id.buttonMultiply);
+        buttonDivide = findViewById(R.id.buttonDivide);
+
 
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
+        button5 = findViewById(R.id.button5);
+        button6 = findViewById(R.id.button6);
+        button7 = findViewById(R.id.button7);
+        button8 = findViewById(R.id.button8);
+        button9 = findViewById(R.id.button9);
+        button0 = findViewById(R.id.button0);
 
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eTextMessage.setText(wynikDzialania(mTextMessage));
+                mTextMessage.setText(equation(mTextMessage).toString());
             }
         });
 
@@ -96,6 +104,30 @@ public class MainActivity extends AppCompatActivity {
                 mTextMessage.setText(mTextMessage.getText().toString() + buttonPlus.getText());
             }
         });
+
+        buttonMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + buttonMinus.getText());
+            }
+        });
+
+        buttonMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + buttonMultiply.getText());
+            }
+        });
+
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + buttonDivide.getText());
+            }
+        });
+
+
+        //Numerical buttons
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +142,63 @@ public class MainActivity extends AppCompatActivity {
                 mTextMessage.setText(mTextMessage.getText().toString() + button2.getText());
             }
         });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button3.getText());
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button4.getText());
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button5.getText());
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button6.getText());
+            }
+        });
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button7.getText());
+            }
+        });
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button8.getText());
+            }
+        });
+
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button9.getText());
+            }
+        });
+
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(mTextMessage.getText().toString() + button0.getText());
+            }
+        });
+
 
 
         mTextMessage = (TextView) findViewById(R.id.message);
@@ -139,4 +228,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return b1.add(b2).toString();
     }
+
+    private BigDecimal equation(TextView textView){
+        String[] params = textView.getText().toString().split("+");
+
+        BigDecimal b1 = new BigDecimal(params[0]);
+        BigDecimal b2 = new BigDecimal(params[1]);
+
+        return b1.add(b2);
+    }
+
 }
+
+
+//10 liczb
+//+ - * / , =

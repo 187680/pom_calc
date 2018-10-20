@@ -4,12 +4,26 @@
     <string name="title_extended">Extended</string>
     <string name="title_about">About</string>
     <string name="output_result"></string>
+
     <string name="button_1">1</string>
     <string name="button_2">2</string>
+    <string name="button_3">3</string>
+    <string name="button_4">4</string>
+    <string name="button_5">5</string>
+    <string name="button_6">6</string>
+    <string name="button_7">7</string>
+    <string name="button_8">8</string>
+    <string name="button_9">9</string>
+    <string name="button_0">0</string>
+
     <string name="button_C">C</string>
     <string name="button_Dot">.</string>
     <string name="button_BS">~</string>
+
     <string name="button_Plus">+</string>
+    <string name="button_Minus">-</string>
+    <string name="button_Multiply">*</string>
+    <string name="button_Divide">/</string>
+
     <string name="button_Equal">=</string>
-    <string name="editText">xYz</string>
 </resources>
