@@ -10,8 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Boolean ifAddition = false;
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
             buttonC, buttonBS, buttonDot,
@@ -68,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
         button9 = findViewById(R.id.button9);
         button0 = findViewById(R.id.button0);
 
+
+        buttonEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextMessage.setText(wynikDzialania(mTextMessage));
+            }
+        });
+
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,17 +104,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonEqual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTextMessage.setText(equation(mTextMessage).toString());
-            }
-        });
+
+        //Operation Buttons
 
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mTextMessage.setText(mTextMessage.getText().toString() + buttonPlus.getText());
+                ifAddition = true;
             }
         });
 
@@ -214,28 +224,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String wynikDzialania(TextView myTextView){
-        BigDecimal b1 = null,b2 = null;
-        String sign = "";
-        Character[] mathOpertators = {'+', '.'};
 
-        for (String findRegex : myTextView.getText().toString().split("")) {
-            for (int i = 0; i < mathOpertators.length; i++)
-                if (findRegex.charAt(0) == (mathOpertators[i])) {
-                    String[] params = myTextView.getText().toString().split(findRegex);
-                    b1 = new BigDecimal(params[0]);
-                    b2 = new BigDecimal(params[1]);
-                }
+        BigDecimal b1 = null,b2 = null;
+
+        Stack<String> params = signSplitter(myTextView);
+
+
+        switch (params.pop()){
+            case "add":
+                b1 = new BigDecimal(params.pop());
+                b2 = new BigDecimal(params.pop());
+                break;
         }
+
         return b1.add(b2).toString();
     }
 
-    private BigDecimal equation(TextView textView){
-        String[] params = textView.getText().toString().split("+");
+    private Stack<String> signSplitter(TextView textView){
 
-        BigDecimal b1 = new BigDecimal(params[0]);
-        BigDecimal b2 = new BigDecimal(params[1]);
+        String[] params = textView.getText().toString().split("\\+");
 
-        return b1.add(b2);
+        Stack<String> stackParams = new Stack<>();
+
+        for (String str : params){
+            stackParams.add(str);
+        }
+
+        if(ifAddition == true){
+            stackParams.add("add");
+            ifAddition = false;
+        }
+
+
+        return stackParams;
     }
 
 }
