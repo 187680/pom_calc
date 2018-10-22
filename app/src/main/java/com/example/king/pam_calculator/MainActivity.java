@@ -7,21 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Boolean ifAddition = false;
+    private Boolean ifAddition = false, ifDivide = false, ifMultiplication = false, ifSubtraction = false;
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
             buttonC, buttonBS, buttonDot,
             buttonEqual,
-            buttonPlus, buttonMinus, buttonDivide, buttonMultiply;
+            buttonPlus, buttonSubtract , buttonDivide, buttonMultiply;
 
     private TextView mTextMessage;
 
@@ -56,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         buttonEqual = findViewById(R.id.buttonEqual);
         buttonPlus = findViewById(R.id.buttonPlus);
-        buttonMinus = findViewById(R.id.buttonMinus);
+        buttonSubtract  = findViewById(R.id.buttonMinus);
         buttonMultiply = findViewById(R.id.buttonMultiply);
         buttonDivide = findViewById(R.id.buttonDivide);
-
 
 
         button1 = findViewById(R.id.button1);
@@ -100,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         buttonDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText() + ".");
+                mTextMessage.setText(mTextMessage.getText() + buttonDot.getText().toString());
             }
         });
 
@@ -115,10 +112,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonMinus.setOnClickListener(new View.OnClickListener() {
+        buttonSubtract .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText().toString() + buttonMinus.getText());
+                mTextMessage.setText(mTextMessage.getText().toString() + buttonSubtract .getText());
+                ifSubtraction = true;
             }
         });
 
@@ -126,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTextMessage.setText(mTextMessage.getText().toString() + buttonMultiply.getText());
+                ifMultiplication = true;
             }
         });
 
@@ -133,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTextMessage.setText(mTextMessage.getText().toString() + buttonDivide.getText());
+                ifDivide = true;
             }
         });
 
@@ -232,31 +232,93 @@ public class MainActivity extends AppCompatActivity {
 
         switch (params.pop()){
             case "add":
-                b1 = new BigDecimal(params.pop());
                 b2 = new BigDecimal(params.pop());
-                break;
+                b1 = new BigDecimal(params.pop());
+                return b1.add(b2).toString();
+            case "sub":
+                b2 = new BigDecimal(params.pop());
+                b1 = new BigDecimal(params.pop());
+                return b1.subtract(b2).toString();
+            case "mul":
+                b2 = new BigDecimal(params.pop());
+                b1 = new BigDecimal(params.pop());
+                return b1.multiply(b2).toString();
+            case "div":
+                b2 = new BigDecimal(params.pop());
+                b1 = new BigDecimal(params.pop());
+                return b1.divide(b2, BigDecimal.ROUND_HALF_UP).toString();
+            default:
+                return "";
+
         }
 
-        return b1.add(b2).toString();
+
     }
 
     private Stack<String> signSplitter(TextView textView){
 
-        String[] params = textView.getText().toString().split("\\+");
+        String[] params;
 
         Stack<String> stackParams = new Stack<>();
 
-        for (String str : params){
-            stackParams.add(str);
-        }
+        if(ifAddition){
+            params = textView.getText().toString().split("\\+");
 
-        if(ifAddition == true){
+            for (String str : params){
+                stackParams.add(str);
+            }
+
             stackParams.add("add");
+
             ifAddition = false;
+        }else if(ifSubtraction){
+            params = textView.getText().toString().split("\\-");
+
+            for (String str : params){
+                stackParams.add(str);
+            }
+
+            stackParams.add("sub");
+
+            ifSubtraction = false;
+        }else if(ifMultiplication){
+            params = textView.getText().toString().split("\\*");
+
+            for (String str : params){
+                stackParams.add(str);
+            }
+
+            stackParams.add("mul");
+
+            ifMultiplication = false;
+        }else if(ifDivide){
+            params = textView.getText().toString().split("\\/");
+
+            for (String str : params){
+                stackParams.add(str);
+            }
+
+            stackParams.add("div");
+
+            ifDivide = false;
         }
 
 
         return stackParams;
+    }
+
+    private Boolean signDublicated(TextView textView){
+        Boolean condiction = false;
+
+        String[] signs = {"+", "-","*", "/"};
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+
+        String[] sTextView = textView.getText().toString().split("[a-zA-Z_0-9_+-/]?");
+
+        for ()
+
+
+        return condiction;
     }
 
 }
