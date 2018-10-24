@@ -1,5 +1,6 @@
 package com.example.king.pam_calculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_extended);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_about);
+                    startActivity(new Intent(MainActivity.this, AboutMe.class));
                     return true;
             }
             return false;
