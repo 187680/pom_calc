@@ -26,4 +26,8 @@
     <string name="button_Divide">/</string>
 
     <string name="button_Equal">=</string>
+
+
+    <string name="button_aboutMeBackButton">back to MainActivity</string>
+    <string name="textVew_aboutMeTitle">Siema, mam na Imię: Bartosz</string>
 </resources>
