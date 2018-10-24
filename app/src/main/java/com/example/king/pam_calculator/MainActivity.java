@@ -107,32 +107,40 @@ public class MainActivity extends AppCompatActivity {
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText().toString() + buttonPlus.getText());
-                ifAddition = true;
+                if(!signDublicated(mTextMessage)) {
+                    mTextMessage.setText(mTextMessage.getText().toString() + buttonPlus.getText());
+                    ifAddition = true;
+                }
             }
         });
 
         buttonSubtract .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText().toString() + buttonSubtract .getText());
-                ifSubtraction = true;
+                if(!signDublicated(mTextMessage)) {
+                    mTextMessage.setText(mTextMessage.getText().toString() + buttonSubtract.getText());
+                    ifSubtraction = true;
+                }
             }
         });
 
         buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText().toString() + buttonMultiply.getText());
-                ifMultiplication = true;
+                if(!signDublicated(mTextMessage)){
+                    mTextMessage.setText(mTextMessage.getText().toString() + buttonMultiply.getText());
+                    ifMultiplication = true;
+                }
             }
         });
 
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextMessage.setText(mTextMessage.getText().toString() + buttonDivide.getText());
-                ifDivide = true;
+                if(!signDublicated(mTextMessage)) {
+                    mTextMessage.setText(mTextMessage.getText().toString() + buttonDivide.getText());
+                    ifDivide = true;
+                }
             }
         });
 
@@ -248,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 b1 = new BigDecimal(params.pop());
                 return b1.divide(b2, BigDecimal.ROUND_HALF_UP).toString();
             default:
-                return "";
+                return myTextView.getText().toString();
 
         }
 
@@ -263,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(ifAddition){
             params = textView.getText().toString().split("\\+");
-
             for (String str : params){
                 stackParams.add(str);
             }
@@ -301,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
             stackParams.add("div");
 
             ifDivide = false;
+        }else{
+            stackParams.add("noEntry");
         }
 
 
@@ -308,21 +317,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Boolean signDublicated(TextView textView){
-        Boolean condiction = false;
 
-        String[] signs = {"+", "-","*", "/"};
-        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        Character[] signs = {'+', '-','*', '/', '.'};
 
-        String[] sTextView = textView.getText().toString().split("[a-zA-Z_0-9_+-/]?");
+        if((textView.getText().toString().length()) > 0){
+            Character lastChar = textView.getText().toString().charAt(
+                    textView.getText().toString().length() -1);
 
-        for ()
-
-
-        return condiction;
+            for (Character sg : signs){
+                if(lastChar.equals(sg)){
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            return false;
+        }
     }
 
 }
 
 
-//10 liczb
-//+ - * / , =
+//Dodac zabezpieczenie jezeli mam kropke kropka tylko jezeli mamy liczbe przed
+//Jezeli mamy +3 jezeli string spliter ma 2 elemeny dodac 0 jako pierwszy
