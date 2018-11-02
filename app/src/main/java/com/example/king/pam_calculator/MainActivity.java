@@ -15,12 +15,15 @@ import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Boolean ifAddition = false, ifDivide = false, ifMultiplication = false, ifSubtraction = false;
+    private Boolean ifAddition = false, ifDivision = false, ifMultiplication = false, ifSubtraction = false,
+                    ifDividedByZero = false,
+                    ifPercentagePress = false;
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
             buttonC, buttonBS, buttonDot,
             buttonEqual,
-            buttonPlus, buttonSubtract , buttonDivide, buttonMultiply;
+            buttonPlus, buttonSubtract , buttonDivide, buttonMultiply,
+            buttonPercentage;
 
     private TextView mTextMessage;
 
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         buttonMultiply = findViewById(R.id.buttonMultiply);
         buttonDivide = findViewById(R.id.buttonDivide);
 
+        buttonPercentage = findViewById(R.id.buttonPercentage);
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!signDublicated(mTextMessage)) {
                     mTextMessage.setText(mTextMessage.getText().toString() + buttonDivide.getText());
-                    ifDivide = true;
+                    ifDivision = true;
                 }
             }
         });
@@ -219,10 +223,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        if(savedInstanceState != null){
+            mTextMessage.setText(savedInstanceState.getString("mTextView"));
+
+            ifAddition = savedInstanceState.getBoolean("ifAddition");
+            ifSubtraction = savedInstanceState.getBoolean("ifSubtraction");
+            ifDivision = savedInstanceState.getBoolean("ifDivision");
+            ifMultiplication = savedInstanceState.getBoolean("ifMultiplication");
+            ifDividedByZero = savedInstanceState.getBoolean("ifDividedByZero");
+        }
     }
 
     private boolean isTextViewEmpty(TextView myTextView) {
@@ -230,6 +243,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("mTextView", mTextMessage.getText().toString());
+
+        outState.putBoolean("ifAddition", ifAddition);
+        outState.putBoolean("ifSubtraction", ifSubtraction);
+        outState.putBoolean("ifDivision", ifDivision);
+        outState.putBoolean("ifMultiplication", ifMultiplication);
+        outState.putBoolean("ifDividedByZero", ifDividedByZero);
     }
 
     private String wynikDzialania(TextView myTextView){
@@ -255,7 +281,12 @@ public class MainActivity extends AppCompatActivity {
             case "div":
                 b2 = new BigDecimal(params.pop());
                 b1 = new BigDecimal(params.pop());
-                return b1.divide(b2, BigDecimal.ROUND_HALF_UP).toString();
+                if(ifDividedByZero){
+                    ifDividedByZero = false;
+                    return "0";
+                }else{
+                    return b1.divide(b2, BigDecimal.ROUND_HALF_UP).toString();
+                }
             default:
                 return myTextView.getText().toString();
 
@@ -299,16 +330,18 @@ public class MainActivity extends AppCompatActivity {
             stackParams.add("mul");
 
             ifMultiplication = false;
-        }else if(ifDivide){
+        }else if(ifDivision){
             params = textView.getText().toString().split("\\/");
-
+            if(Integer.parseInt(params[1]) == 0){
+                ifDividedByZero = true;
+            }
             for (String str : params){
                 stackParams.add(str);
             }
 
             stackParams.add("div");
 
-            ifDivide = false;
+            ifDivision = false;
         }else{
             stackParams.add("noEntry");
         }

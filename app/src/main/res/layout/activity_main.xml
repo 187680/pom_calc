@@ -50,8 +50,8 @@
     <Button
         android:id="@+id/button0"
         android:layout_width="70sp"
-        android:layout_height="70sp"
-        android:layout_marginStart="16dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="26dp"
         android:layout_marginBottom="16dp"
         android:text="@string/button_0"
         android:textSize="20sp"
@@ -148,9 +148,9 @@
 
     <Button
         android:id="@+id/buttonC"
-        android:layout_width="70sp"
+        android:layout_width="50sp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/button_C"
@@ -239,9 +239,9 @@
 
     <Button
         android:id="@+id/buttonBS"
-        android:layout_width="70sp"
+        android:layout_width="50sp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/button_BS"
