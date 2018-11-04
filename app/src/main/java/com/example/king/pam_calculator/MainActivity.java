@@ -16,14 +16,12 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
 
     private Boolean ifAddition = false, ifDivision = false, ifMultiplication = false, ifSubtraction = false,
-                    ifDividedByZero = false,
-                    ifPercentagePress = false;
+            ifDividedByZero = false;
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
             buttonC, buttonBS, buttonDot,
             buttonEqual,
-            buttonPlus, buttonSubtract , buttonDivide, buttonMultiply,
-            buttonPercentage;
+            buttonPlus, buttonSubtract , buttonDivide, buttonMultiply;
 
     private TextView mTextMessage;
 
@@ -34,10 +32,9 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_standard);
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_extended);
                     return true;
                 case R.id.navigation_notifications:
                     startActivity(new Intent(MainActivity.this, AboutMe.class));
@@ -61,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         buttonSubtract  = findViewById(R.id.buttonMinus);
         buttonMultiply = findViewById(R.id.buttonMultiply);
         buttonDivide = findViewById(R.id.buttonDivide);
-
-        buttonPercentage = findViewById(R.id.buttonPercentage);
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
